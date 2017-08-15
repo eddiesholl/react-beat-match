@@ -53,6 +53,9 @@
     "webpack": "^3.4.1",
     "webpack-dev-server": "^2.6.1"
   },
+  "fancyReact": {
+    "packagePath": "."
+  },
   "dependencies": {},
   "jest": {
     "moduleFileExtensions": [

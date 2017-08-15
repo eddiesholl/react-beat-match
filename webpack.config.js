@@ -4,9 +4,7 @@ const StyleLintPlugin = require('stylelint-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
-    resolve: {
-        extensions: [".webpack.js", ".web.js", ".js", ".jsx"],
-    },
+
     entry:   [
         "react-hot-loader/patch", // activate HMR for React
         "webpack-dev-server/client?http://localhost:8080",// bundle the client for webpack-dev-server and connect to the provided endpoint
@@ -33,6 +31,7 @@ module.exports = {
             {
                 test:    /\.(js|jsx)$/,
                 use:     ["babel-loader"],
+                include: resolve(__dirname, 'src'),
                 exclude: /node_modules/
             },
             {
@@ -84,6 +83,13 @@ module.exports = {
     externals:   {
         "react":     "React",
         "react-dom": "ReactDOM"
+    },
+    resolve: {
+      modules: [
+        'node_modules',
+        resolve(__dirname)
+      ],
+      extensions: [".webpack.js", ".web.js", ".js", ".jsx"],
     },
     performance: {
         hints: false

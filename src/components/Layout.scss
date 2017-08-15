@@ -1,3 +1,3 @@
 .wrapper {
-  composes: u-flex u-flexRow from '../styles/common.scss';
+  composes: c-flex c-flexRow c-flexJustifySpaceBetween from '../styles/common.scss';
 }

@@ -1,7 +1,11 @@
-.u-flex {
+.c-flex {
   display: flex;
 }
 
-.u-flexRow {
+.c-flexRow {
   flex-direction: row;
+}
+
+.c-flexJustifySpaceBetween {
+  justify-content: space-between;
 }
