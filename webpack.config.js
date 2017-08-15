@@ -1,6 +1,7 @@
 const webpack         = require("webpack");
 const {resolve}       = require("path");
 const StyleLintPlugin = require('stylelint-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
     resolve: {
@@ -40,7 +41,29 @@ module.exports = {
             },
             {
                 test:    /\.scss$/,
-                loaders: ["style-loader", "css-loader?modules", "postcss-loader", "sass-loader"]
+                use: ExtractTextPlugin.extract({
+                    fallback: 'style-loader',
+                    use: [
+                      {
+                        loader: 'css-loader',
+                        options: {
+                          modules: true,
+                          sourceMap: true,
+                          importLoaders: 1,
+                          localIdentName: '[path][name]-[local]',
+                          minimize: false
+                        }
+                      },
+                      {
+                        loader: 'sass-loader',
+                        options: {
+                          includePaths: [
+                            resolve(__dirname, 'node_modules'),
+                            resolve(__dirname, 'src', 'styles')
+                          ]
+                        }
+                      }]
+                  })
             },
             {
                 test:    /\.(jpe?g|png|gif|svg)$/i,
@@ -56,7 +79,7 @@ module.exports = {
         new StyleLintPlugin(),
         new webpack.HotModuleReplacementPlugin(), // enable HMR globally
         new webpack.NamedModulesPlugin(), // prints more readable module names in the browser console on HMR updates
-
+        new ExtractTextPlugin('styles.bundle.css')
     ],
     externals:   {
         "react":     "React",
